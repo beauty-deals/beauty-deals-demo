@@ -7,20 +7,25 @@ import {
     Main,
     Card,
     CardBody,
-    CardHeader
-  } from "grommet";
+    CardHeader,
+    Anchor,
+} from "grommet";
 import { getFavorite } from "../util/API";
 import { theme } from "../Constants";
 
+const productUrl = (id) => `http://localhost:3000/product/${id}`;
+
 function AddData(props){
   const columns = [
-    
+
     {
         property: 'dealDescription',
         header: <Text>Deal Description</Text>,
         render: data => (
-            <Text size="medium">{data.dealDescription}
-            </Text>
+            <Anchor href={productUrl(data.productDescription)}>
+                <Text size="medium">{data.dealDescription}
+                </Text>
+            </Anchor>
         )
     },
     {
@@ -80,30 +85,30 @@ class Favorites extends Component {
         super(props);
         this.state = {
             products: [],
-            productDescription: []
         }
     }
 
     componentDidMount() {
         const userId = this.props.currentUser.username;
-       let productName = [];
         getFavorite(userId)
             .then(response => {
                 this.setState({
                     products: response.data,
                 })
         });
-  
+
     }
     render() {
       if(this.state.products.content){
-      const data = this.state.products.content;
-      const datas = []
+      const datas = [];
+      let i = 0;
       this.state.products.content.forEach(
-        deal=>{datas.push(deal.deals[0])
-      
-          })
-        return (
+        deal => {
+            datas.push(deal.deals[0]);
+            datas[i].productDescription = deal.productDescription;
+            i++;
+          });
+      return (
             <Grommet full theme={theme}>
                 <Main fill="vertical" flex="grow" overflow="auto">
                 <Box align="center" justify="start" pad="xlarge" height="large">

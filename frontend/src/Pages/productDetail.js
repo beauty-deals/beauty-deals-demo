@@ -31,6 +31,7 @@ class ProductDetail extends Component {
     
     componentDidMount() {
         const id = this.props.match.params.id;
+        console.log(this.props);
         getProductById(id)
             .then(response => {
                 this.setState({
