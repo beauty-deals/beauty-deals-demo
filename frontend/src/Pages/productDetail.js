@@ -31,7 +31,7 @@ class ProductDetail extends Component {
     
     componentDidMount() {
         const id = this.props.match.params.id;
-        console.log(this.props);
+        console.log(this.props); // show current history
         getProductById(id)
             .then(response => {
                 this.setState({
@@ -129,34 +129,28 @@ class ProductDetail extends Component {
                         <Card>
                             <CardHeader pad="medium">Product Description {this.props.match.params.id}</CardHeader>
                             <CardBody pad="medium" direction="column" justify="center" align="stretch" gap="large" overflow = "scroll">
-                            <Box align="center" justify="start" direction="row" height="large" gap = "large">
-                                <Image src={product.image_link} />
-                                <List
-                                    primaryKey="attribute"
-                                    secondaryKey="value"
-                                    data={[
-                                        { attribute: 'Name', value: product.name },
-                                        { attribute: 'Brand', value: product.brand },
-                                        { attribute: 'Category', value: product.product_type },
-                                        { attribute: 'Suggest Price', value: "$" + product.price },
-                                    ]}
-                                />
-                            </Box>
-                        <Box pad = "medium">
-
-                        </Box>
-                         <Box align="center" justify="start" height="large">
-                        
-                        <DataTable
-                            columns={columns}
-                            data={deal.deals}
-                            
-                            
-                            align='center'
-                        >
-                            
-                        </DataTable>
-                   </Box>
+                                <Box direction="column" pad="medium" gap="xlarge">
+                                    <Box align="center" justify="start" direction="row" height="large" gap = "large">
+                                        <Image src={product.image_link} fit="contain" />
+                                        <List
+                                            primaryKey="attribute"
+                                            secondaryKey="value"
+                                            data={[
+                                                { attribute: 'Name', value: product.name },
+                                                { attribute: 'Brand', value: product.brand },
+                                                { attribute: 'Category', value: product.product_type },
+                                                { attribute: 'Suggest Price', value: "$" + product.price },
+                                            ]}
+                                        />
+                                    </Box>
+                                    <Box align="center" justify="start" height="large">
+                                        <DataTable
+                                            columns={columns}
+                                            data={deal.deals}
+                                            align='center'
+                                        />
+                                    </Box>
+                                </Box>
                             </CardBody>
                             <CardFooter pad={{horizontal: "small"}} background="light-2">
                                 <Button
