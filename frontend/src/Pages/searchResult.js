@@ -18,7 +18,7 @@ const columns = [
         render: data => (
             <Image
                 src={data.image_link}
-                fit="cover"
+                fit="contain"
             />
         ),
         size: "medium",
